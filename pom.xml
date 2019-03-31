@@ -41,6 +41,7 @@
         <module>department</module>
         <module>eureka-server</module>
         <module>corporation</module>
+        <module>auth</module>
     </modules>
 
     <dependencyManagement>

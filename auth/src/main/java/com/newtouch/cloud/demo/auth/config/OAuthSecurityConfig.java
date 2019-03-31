@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -18,8 +20,11 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;
 
-    public OAuthSecurityConfig(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    private PasswordEncoder passwordEncoder;
+
+    public OAuthSecurityConfig(AuthenticationConfiguration configuration, PasswordEncoder passwordEncoder) throws Exception {
+        this.authenticationManager = configuration.getAuthenticationManager();
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -40,7 +45,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
         clients.inMemory()
                 .withClient("web_app")
-                .secret("web_secret")
+                .secret(passwordEncoder.encode("web_secret"))
                 .scopes("FOO")
                 .autoApprove(true)
                 .authorities("FOO_READ", "FOO_WRITE")
