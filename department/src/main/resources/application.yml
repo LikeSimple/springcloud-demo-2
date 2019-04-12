@@ -3,15 +3,17 @@ spring:
     name: service-department
   profiles:
     active: dev
-  security.
+
 ---
 spring:
   profiles: dev
   datasource:
     username: root
-    password: 1234
+    password: 123456
     url: jdbc:mysql://localhost:3306/springcloud_demo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
     driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    baseline-on-migrate: true
 server:
   port: 8091
 eureka:
@@ -23,7 +25,6 @@ eureka:
       defaultZone: http://service-eureka:8090/eureka/
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-
 ---
 spring:
   profiles: peer1
@@ -81,5 +82,23 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://service-eureka:8090/eureka/
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+---
+spring:
+  profiles: docker
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://db:3306/springcloud_demo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8090/eureka/
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -1,0 +1,60 @@
+version: "2.4"
+services:
+  mq:
+    image: rabbitmq:3.7.7-management-alpine
+    networks:
+      - yl
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "4369:4369"
+      - "5671:5671"
+    environment:
+      TZ: "Asia/Shanghai"
+      RABBITMQ_DEFAULT_USER: "rabbit"
+      RABBITMQ_DEFAULT_PASS: "123456"
+    restart: on-failure
+    mem_limit: 512MB
+  db:
+    image: percona:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --ignore-db-dir=lost+found
+    networks:
+      - yl
+    ports:
+      - "3306:3306"
+    volumes:
+      - "db-data:/var/lib/mysql"
+      # - "./mysql/init:/docker-entrypoint-initdb.d/"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      TZ: "Asia/Shanghai"
+      MYSQL_DATABASE: springcloud_demo
+    restart: on-failure
+    mem_limit: 512MB
+  redis:
+    image: redis:4.0.11-alpine
+    networks:
+      - yl
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: "Asia/Shanghai"
+    restart: on-failure
+    mem_limit: 512MB
+  eureka:
+    image: registry.cn-beijing.aliyuncs.com/jimmyxu/eureka-server:0.0.1-SNAPSHOT
+    networks:
+      - yl
+    ports:
+      - "8090:8090"
+    environment:
+      TZ: "Asia/Shanghai"
+      JAVA_OPTS: "-Xms64M -Xmx128M -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+    restart: on-failure
+    mem_limit: 256MB
+networks:
+  yl:
+
+volumes:
+  db-data:
+    driver: local
