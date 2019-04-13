@@ -25,6 +25,7 @@ eureka:
       defaultZone: http://service-eureka:8090/eureka/
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
 ---
 spring:
   profiles: peer1
