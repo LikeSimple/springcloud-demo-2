@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: service-auth
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo_oauth_client?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+    username: root
+    password: 1234
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+  rabbitmq:
+    username: rabbit
+    password: 123456
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+server:
+  port: 9999
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://service-eureka:8090/eureka/
+

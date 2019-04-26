@@ -23,15 +23,14 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "db-data:/var/lib/mysql"
-#      - "./mysql/init:/docker-entrypoint-initdb.d/"
+      - "./mysql:/docker-entrypoint-initdb.d/"
     environment:
       MYSQL_ROOT_PASSWORD: "1234"
       TZ: "Asia/Shanghai"
     restart: on-failure
     mem_limit: 512MB
   redis:
-    image: redis:4.0.11-alpine
+    image: redis:4.0.12-alpine
     networks:
       - yl
     ports:
@@ -53,7 +52,3 @@ services:
     mem_limit: 256MB
 networks:
   yl:
-
-volumes:
-  db-data:
-    driver: local
