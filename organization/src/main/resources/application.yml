@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: service-organization
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo_organization?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+    username: root
+    password: 1234
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+  rabbitmq:
+    username: rabbit
+    password: 123456
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka/
+server:
+  port: 8100
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

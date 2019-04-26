@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: service-organization
+  profiles:
+    active: test
+
+---
+
+spring:
+  profiles: test
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo_organization?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+    username: root
+    password: 1234
