@@ -1,6 +1,14 @@
 spring:
   profiles:
-    active: dev
+    active: test
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 ---
 spring:
@@ -39,3 +47,54 @@ eureka:
     eviction-interval-timer-in-ms: 15000
 server:
   port: 8090
+
+---
+spring:
+  profiles: peer1
+  application:
+    name: registry-server
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
+  server:
+#    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 15000
+server:
+  port: 8091
+
+---
+spring:
+  profiles: peer2
+  application:
+    name: registry-server
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-3:8093/eureka/
+  server:
+#    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 15000
+server:
+  port: 8092
+
+---
+spring:
+  profiles: peer3
+  application:
+    name: registry-server
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/
+  server:
+#    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 15000
+server:
+  port: 8093

@@ -30,5 +30,4 @@ eureka:
     hostname: ${spring.application.name}
   client:
     serviceUrl:
-      defaultZone: http://service-eureka:8090/eureka/
-
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
