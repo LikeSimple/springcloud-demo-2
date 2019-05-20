@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Corporation implements Serializable {
+
     private Integer corpId;
 
     private String corpName;

@@ -15,8 +15,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-import javax.sql.DataSource;
-
 @Configuration
 public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
@@ -24,7 +22,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     private ClientDetailsService clientDetailsService;
 
-    public OAuthSecurityConfig(AuthenticationConfiguration configuration, DataSource dataSource, ClientDetailsService clientDetailsService) throws Exception {
+    public OAuthSecurityConfig(AuthenticationConfiguration configuration, ClientDetailsService clientDetailsService) throws Exception {
         this.authenticationManager = configuration.getAuthenticationManager();
         this.clientDetailsService = clientDetailsService;
     }
@@ -46,6 +44,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         clients.withClientDetails(clientDetailsService);
+        // Just for demo
 //        clients.inMemory()
 //                .withClient("web_app")
 //                .secret(passwordEncoder.encode("web_secret"))
@@ -57,14 +56,14 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer()).authenticationManager(authenticationManager);
     }
 }
