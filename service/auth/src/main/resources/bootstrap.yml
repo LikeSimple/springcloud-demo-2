@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: service-auth
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/

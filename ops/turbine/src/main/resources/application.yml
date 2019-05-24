@@ -9,11 +9,12 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
 ---
 spring:
   profiles: dev
   application:
-    name: service-admin
+    name: service-turbine
   rabbitmq:
     username: rabbit
     password: 123456
@@ -25,4 +26,4 @@ eureka:
     serviceUrl:
       defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
 server:
-  port: 7777
+  port: 5555

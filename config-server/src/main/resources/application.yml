@@ -6,17 +6,24 @@ spring:
       server:
         accept-empty: false
   profiles:
-    active: native
+    active: git
 eureka:
   instance:
     prefer-ip-address: true
     hostname: ${spring.application.name}
   client:
     serviceUrl:
-      defaultZone: http://service-eureka:8090/eureka/
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
 server:
   port: 8888
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 ---
 spring:
   profiles: git
@@ -27,7 +34,7 @@ spring:
           uri: https://github.com/LikeSimple/spring-cloud-config
           refresh-rate: 15 # 默认为0，即每次请求都刷新远程信息；否则为指定多久后才刷新
           default-label: master # 指定默认版本，可以是commit id, tag, branch name
-          search-paths: repos, {application}/{profile} # 指定搜索子路径以及搜索格式
+          search-paths: {application} # 指定搜索子路径以及搜索格式 repos, {application}/{profile}/{label}
           timeout: 5
 #          force-pull: true
 #          deleteUntrackedBranches: true
@@ -42,10 +49,10 @@ spring:
 #              uri: https://github.com/development/config-repo
 #              username: trolley
 #              password: strongpassword
-#              或者也可以使用ssh形式，会使用~/.ssh/下的配置 ，只支持rsa形式，Gti服务器应在known_hosts文件中，HTTPS PROXY则配置在~/.git/config中或者使用启动参数-Dhttps.proxyHost and -Dhttps.proxyPort
+#              或者也可以使用ssh形式，会使用~/.ssh/下的配置 ，只支持rsa形式，Git服务器应在known_hosts文件中，HTTPS PROXY则配置在~/.git/config中或者使用启动参数-Dhttps.proxyHost and -Dhttps.proxyPort
 ---
 spring:
-  profiles: local
+  profiles: local # 本地Git Clone库形式
   cloud:
     config:
       server:
@@ -58,7 +65,7 @@ spring:
 
 ---
 spring:
-  profiles: native
+  profiles: native # 本地文件系统形式
   cloud:
     config:
       server:
@@ -66,7 +73,7 @@ spring:
           search-locations: classpath:/config, file:./{application}/{profile}/{label}
 ---
 spring:
-  profiles: vault
+  profiles: vault # 以vault加密kv库作为后端形式
   cloud:
     config:
       server:

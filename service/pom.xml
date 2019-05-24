@@ -88,6 +88,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <!-- Spring Boot 测试支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

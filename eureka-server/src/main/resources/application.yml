@@ -18,14 +18,27 @@ spring:
 eureka:
   instance:
     hostname: ${spring.application.name}
+#    lease-renewal-interval-in-seconds: 30 服务和注册中心的心跳间隔时间，默认为30s
+#    lease-expiration-duration-in-seconds: 90 服务和注册中心的心跳超时时间，默认为90s
+#    environment:
+#    data-center-info:
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    prefer-same-zone-eureka: true
+#    region: shanghai
+#    availability-zones:
+#      shagnhai: zone-1,zone-2 #一定要注意availability-zones的顺序，必须把Service跟同一zone写在前面
+#    serviceUrl:
+#      zone-1: http://localhost:${server.port}/eureka/
+#      zone-2: http://localhost:${server.port}/eureka/
     serviceUrl:
       defaultZone: http://localhost:${server.port}/eureka/
   server:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
+    renewal-threshold-update-interval-ms: 10000
+    renewal-percent-threshold: 0.45
 server:
   port: 8090
 
@@ -45,6 +58,8 @@ eureka:
   server:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
+    renewal-percent-threshold: 0.45
+    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8090
 
@@ -55,13 +70,18 @@ spring:
     name: registry-server
 eureka:
   instance:
-    hostname: ${spring.application.name}
+    hostname: ${spring.application.name}-1
+    prefer-ip-address: false
   client:
     serviceUrl:
       defaultZone: http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
+    register-with-eureka: true
+    fetch-registry: false
   server:
-#    enable-self-preservation: true
+    enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
+    renewal-percent-threshold: 0.45
+#    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8091
 
@@ -72,13 +92,18 @@ spring:
     name: registry-server
 eureka:
   instance:
-    hostname: ${spring.application.name}
+    hostname: ${spring.application.name}-2
+    prefer-ip-address: false
   client:
     serviceUrl:
       defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-3:8093/eureka/
+    register-with-eureka: true
+    fetch-registry: false
   server:
-#    enable-self-preservation: true
+    enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
+    renewal-percent-threshold: 0.45
+#    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8092
 
@@ -89,12 +114,17 @@ spring:
     name: registry-server
 eureka:
   instance:
-    hostname: ${spring.application.name}
+    hostname: ${spring.application.name}-3
+    prefer-ip-address: false
   client:
     serviceUrl:
       defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/
+    register-with-eureka: true
+    fetch-registry: false
   server:
-#    enable-self-preservation: true
+    enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
+    renewal-percent-threshold: 0.45
+#    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8093
