@@ -24,10 +24,10 @@ spring:
     baseline-on-migrate: true
 server:
   port: 9999
-eureka: # 注册中心
+eureka:
   instance:
     prefer-ip-address: true
     hostname: ${spring.application.name}
   client:
     serviceUrl:
-      defaultZone: http://service-eureka:8090/eureka/
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
