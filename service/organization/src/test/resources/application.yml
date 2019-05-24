@@ -13,8 +13,9 @@ spring:
   datasource:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:mysql://hostname:3306/dbname?TC_INITSCRIPT=init_db.sql
-#    username: root
-#    password: 1234
+  rabbitmq:
+    username: rabbit
+    password: 123456
 
 eureka:
   client:

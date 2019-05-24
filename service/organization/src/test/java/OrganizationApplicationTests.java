@@ -1,5 +1,6 @@
 import com.newtouch.cloud.demo.organization.OrganizationApplication;
 import com.newtouch.cloud.demo.organization.persistence.mapper.CorporationMapper;
+import org.jetbrains.annotations.NotNull;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,8 @@ public class OrganizationApplicationTests {
     private CorporationMapper corporationMapper;
 
     @ClassRule
-    public static MySQLContainer db = new MySQLContainer("mysql:5.7").withDatabaseName("organization");
+    private static MySQLContainer db = new MySQLContainer("mysql:5.7.22");
+
 
     @ClassRule
     public static GenericContainer redis = new GenericContainer("redis:4.0.12-alpine")
@@ -32,12 +34,14 @@ public class OrganizationApplicationTests {
 
     @ClassRule
     public static GenericContainer rabbitMq = new GenericContainer("rabbitmq:3.7.7-management-alpine")
-            .withExposedPorts(5672);
+            .withExposedPorts(5672)
+            .withEnv("RABBITMQ_DEFAULT_USER","rabbit")
+            .withEnv("RABBITMQ_DEFAULT_PASS", "123456");
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
         @Override
-        public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+        public void initialize(@NotNull ConfigurableApplicationContext configurableApplicationContext) {
             TestPropertyValues.of(
                     "spring.redis.port=" + redis.getFirstMappedPort(),
                     "spring.rabbitmq.port=" + rabbitMq.getFirstMappedPort()
