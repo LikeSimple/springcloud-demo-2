@@ -13,3 +13,4 @@ CREATE TABLE IF NOT EXISTS oauth_client_details
     autoapprove             VARCHAR(256),
     INDEX idx_ocd_client_id (client_id)
 );
+
