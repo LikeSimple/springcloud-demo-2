@@ -16,6 +16,7 @@
     <modules>
         <module>admin</module>
         <module>turbine</module>
+        <module>hystrix-dashboard</module>
     </modules>
 
     <dependencies>
