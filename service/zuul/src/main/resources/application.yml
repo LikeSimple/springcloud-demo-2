@@ -42,9 +42,9 @@ zuul:
 #      path: /v1/api/user/**
 #      serviceId: service-user
     admin:
-      path: /admin/**
-      serviceId: service-admin
-      stripPrefix: false # 后端服务为网站类型的话，访问Url必须与后端网站的ContextPath一致，否则会导致资源获取路径错误，必须关闭前缀剥离
+      path: /organization/**
+      serviceId: service-organization
+      stripPrefix: true # 后端服务为网站类型的话，访问Url必须与后端网站的ContextPath一致，否则会导致资源获取路径错误，必须关闭前缀剥离
 #    zipkin:
 #      path: /zipkin/**
 #      url: http://localhost:9411 # 部署时必须指定能解析的zipkin网站域名

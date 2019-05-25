@@ -52,6 +52,7 @@ eureka:
     hostname: ${spring.application.name}
   client:
     registerWithEureka: false
+    #    register-with-eureka: false
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${spring.application.name}:${server.port}/eureka/
@@ -80,8 +81,8 @@ eureka:
   server:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
-    renewal-percent-threshold: 0.45
-#    renewal-threshold-update-interval-ms: 10000
+    renewal-percent-threshold: 0.85
+    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8091
 
@@ -102,8 +103,8 @@ eureka:
   server:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
-    renewal-percent-threshold: 0.45
-#    renewal-threshold-update-interval-ms: 10000
+    renewal-percent-threshold: 0.85
+    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8092
 
@@ -124,7 +125,7 @@ eureka:
   server:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 15000
-    renewal-percent-threshold: 0.45
-#    renewal-threshold-update-interval-ms: 10000
+    renewal-percent-threshold: 0.85
+    renewal-threshold-update-interval-ms: 10000
 server:
   port: 8093
