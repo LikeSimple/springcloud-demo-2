@@ -8,6 +8,8 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
+      username: admin
+      password: admin
 eureka:
   instance:
     prefer-ip-address: true

@@ -7,6 +7,16 @@ spring:
         accept-empty: false
   profiles:
     active: git
+  security:
+    user:
+      name: admin
+      password: admin
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+  session:
+    store-type: redis
 eureka:
   instance:
     prefer-ip-address: true
@@ -57,10 +67,10 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/develop/config-repo # 当URI以file开头，则直接读取本地clone目录，主要用于测试，如果在生产环境需要以共享目录形式给所有的配置服务器挂载；该目录为默认搜索
-          refresh-rate: 15 # 默认为0，即每次请求都刷新远程信息；否则为指定多久后才刷新
+          uri: file://${user.home}/Documents/Dev/learning/spring-cloud-config # 当URI以file开头，则直接读取本地clone目录，主要用于测试，如果在生产环境需要以共享目录形式给所有的配置服务器挂载；该目录为默认搜索
+          #          refresh-rate: 15 # 默认为0，即每次请求都刷新远程信息；否则为指定多久后才刷新
           default-label: master # 指定默认版本，可以是commit id, tag, branch name
-          search-paths: repos* # 子目录搜索，支持目录通配符
+          search-paths: repos # 子目录搜索，支持目录通配符
           timeout: 5
 
 ---
@@ -70,7 +80,7 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/config, file:./{application}/{profile}/{label}
+          search-locations: classpath:/config, classpath:/config/{application}, classpath:/config/{application}/{profile}
 ---
 spring:
   profiles: vault # 以vault加密kv库作为后端形式
