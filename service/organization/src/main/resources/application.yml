@@ -3,7 +3,16 @@ spring:
     name: service-organization
   profiles:
     active: dev
-
+server:
+  port: 8100
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 ---
 spring:
   profiles: dev
@@ -27,14 +36,4 @@ eureka:
     hostname: ${spring.application.name}
   client:
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka/
-server:
-  port: 8100
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS
+      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/

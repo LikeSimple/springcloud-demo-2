@@ -17,6 +17,7 @@
         <module>auth</module>
         <module>gateway</module>
         <module>organization</module>
+        <module>zuul</module>
     </modules>
 
     <dependencies>

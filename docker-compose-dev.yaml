@@ -13,7 +13,6 @@ services:
       TZ: "Asia/Shanghai"
       RABBITMQ_DEFAULT_USER: "rabbit"
       RABBITMQ_DEFAULT_PASS: "123456"
-    restart: on-failure
     mem_limit: 512MB
   db:
     image: percona:5.7
@@ -37,18 +36,30 @@ services:
       - "6379:6379"
     environment:
       TZ: "Asia/Shanghai"
-    restart: on-failure
     mem_limit: 512MB
-  eureka:
-    image: registry.cn-beijing.aliyuncs.com/jimmyxu/eureka-server:0.0.1-SNAPSHOT
+  #  eureka:
+  #    image: registry.cn-beijing.aliyuncs.com/jimmyxu/eureka-server:0.0.1-SNAPSHOT
+  #    networks:
+  #      - yl
+  #    ports:
+  #      - "8090:8090"
+  #    environment:
+  #      TZ: "Asia/Shanghai"
+  #      JAVA_OPTS: "-Xms64M -Xmx128M -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+  #    restart: on-failure
+  #    mem_limit: 256MB
+  zipkin:
+    image: openzipkin/zipkin:2.11.5
+    container_name: simple-cloud-zipkin
     networks:
       - yl
     ports:
-      - "8090:8090"
+      - "9410:9410"
+      - "9411:9411"
     environment:
       TZ: "Asia/Shanghai"
-      JAVA_OPTS: "-Xms64M -Xmx128M -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-    restart: on-failure
-    mem_limit: 256MB
+      RABBIT_URI: "amqp://rabbit:123456@mq:5672"
+    depends_on:
+      - mq
 networks:
   yl:

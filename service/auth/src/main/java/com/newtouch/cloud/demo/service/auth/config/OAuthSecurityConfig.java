@@ -5,26 +5,31 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;
 
-    private ClientDetailsService clientDetailsService;
+    private DataSource datasource;
 
-    public OAuthSecurityConfig(AuthenticationConfiguration configuration, ClientDetailsService clientDetailsService) throws Exception {
+    private PasswordEncoder passwordEncoder;
+
+    public OAuthSecurityConfig(AuthenticationConfiguration configuration, DataSource datasource, PasswordEncoder passwordEncoder) throws Exception {
         this.authenticationManager = configuration.getAuthenticationManager();
-        this.clientDetailsService = clientDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.datasource = datasource;
     }
 
     @Bean
@@ -43,7 +48,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        clients.withClientDetails(clientDetailsService);
+        clients.jdbc(datasource).passwordEncoder(passwordEncoder);
         // Just for demo
 //        clients.inMemory()
 //                .withClient("web_app")
