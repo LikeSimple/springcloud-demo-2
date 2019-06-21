@@ -8,31 +8,36 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-
     <groupId>com.newtouch.cloud.demo.service</groupId>
-    <artifactId>organization</artifactId>
+    <artifactId>user</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>organization</name>
+    <name>user</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
 
-
     <properties>
         <mybatis.generator.jdbcDriver>com.mysql.jdbc.Driver</mybatis.generator.jdbcDriver>
-        <mybatis.generator.jdbcURL><![CDATA[jdbc:mysql://localhost:3306/spring_cloud_demo_organization?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true]]></mybatis.generator.jdbcURL>
+        <mybatis.generator.jdbcURL>
+            <![CDATA[jdbc:mysql://localhost:3306/spring_cloud_demo_user?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true]]></mybatis.generator.jdbcURL>
         <mybatis.generator.jdbcUserId>root</mybatis.generator.jdbcUserId>
         <mybatis.generator.jdbcPassword>1234</mybatis.generator.jdbcPassword>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- Eureka 注册支持 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -43,12 +48,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
-
     </dependencies>
 
     <build>
@@ -72,6 +71,23 @@
                         <artifactId>mybatis-generator-lombok-plugin</artifactId>
                         <version>1.0</version>
                     </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.47</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>5.2.4</version>
+                <configuration>
+                    <url>${mybatis.generator.jdbcURL}</url>
+                    <user>${mybatis.generator.jdbcUserId}</user>
+                    <password>${mybatis.generator.jdbcPassword}</password>
+                </configuration>
+                <dependencies>
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>

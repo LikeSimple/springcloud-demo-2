@@ -10,6 +10,17 @@ spring:
         service-id: config-server
       username: admin
       password: admin
+      fail-fast: true
+      retry:
+        multiplier: 1.2
+        max-attempts: 100
+        max-interval: 2000
+        initial-interval: 2000
+    bus:
+      refresh:
+        enabled: true
+      trace:
+        enabled: true
 eureka:
   instance:
     prefer-ip-address: true

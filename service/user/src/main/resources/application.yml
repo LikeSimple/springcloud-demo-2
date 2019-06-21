@@ -1,10 +1,13 @@
 spring:
   application:
-    name: service-organization
+    name: service-user
   profiles:
     active: dev
-server:
-  port: 8100
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
 management:
   endpoints:
     web:
@@ -20,14 +23,17 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
+server:
+  port: 8101
 ---
+
 spring:
   profiles: dev
   flyway:
     enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_cloud_demo_organization?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo_user?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
     username: root
     password: 1234
   redis:
@@ -37,4 +43,3 @@ spring:
   rabbitmq:
     username: rabbit
     password: 123456
-
