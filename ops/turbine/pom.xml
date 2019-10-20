@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.newtouch.cloud.demo.ops</groupId>
     <artifactId>turbine</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <name>turbine</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>

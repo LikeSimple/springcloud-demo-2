@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.newtouch.cloud.demo.service</groupId>
     <artifactId>zuul</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>zuul</name>
     <description>zuul gateway for services</description>
 
