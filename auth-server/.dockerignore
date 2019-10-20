@@ -1,5 +1,6 @@
 .mvn
 src/
+.gitignore
 mvnw
 mvnw.cmd
 pom.xml

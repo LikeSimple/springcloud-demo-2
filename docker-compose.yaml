@@ -14,9 +14,7 @@ services:
       RABBITMQ_DEFAULT_USER: "rabbit"
       RABBITMQ_DEFAULT_PASS: "123456"
     mem_limit: 512MB
-  oracle:
-
-  mysql:
+  db:
     image: percona:5.7 # 数据库 MySQL 的 Percona 分之发行版
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --ignore-db-dir=lost+found
     networks:
@@ -28,6 +26,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "1234"
       TZ: "Asia/Shanghai"
+    restart: on-failure
     mem_limit: 512MB
   redis:
     image: redis:4.0.12-alpine

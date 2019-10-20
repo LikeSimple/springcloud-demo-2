@@ -1,0 +1,16 @@
+eureka:
+  instance:
+    hostname: cluster03
+    prefer-ip-address: false
+  client:
+    serviceUrl:
+      defaultZone: http://cluster01:8761/eureka/,http://cluster02:8762/eureka/
+    register-with-eureka: true
+    fetch-registry: false
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 15000
+    renewal-threshold-update-interval-ms: 10000
+    renewal-percent-threshold: 0.45
+server:
+  port: 8763

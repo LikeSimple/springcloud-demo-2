@@ -5,15 +5,15 @@
     <parent>
         <groupId>com.newtouch.cloud.demo</groupId>
         <artifactId>service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.newtouch.cloud.demo.service</groupId>
     <artifactId>organization</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>organization</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Demo project for Spring Cloud</description>
     <packaging>jar</packaging>
 
 
@@ -29,11 +29,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- Eureka 注册支持 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -48,7 +43,6 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
-
     </dependencies>
 
     <build>
@@ -56,6 +50,27 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>default</id>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                            <goal>push</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+                <configuration>
+                    <repository>${docker-image.repository.prefix}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <PROJECT_NAME>${project.artifactId}</PROJECT_NAME>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
             </plugin>
             <!-- MyBatis Generator 代码生成器支持 -->
             <plugin>
