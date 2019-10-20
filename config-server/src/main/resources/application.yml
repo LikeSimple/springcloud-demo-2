@@ -11,15 +11,6 @@ spring:
 #    user:
 #      name: admin
 #      password: admin
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: ${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://cluster01:8761/eureka/,http://cluster02:8762/eureka/,http://cluster03:8763/eureka/
-server:
-  port: 8888
 management:
   endpoints:
     web:

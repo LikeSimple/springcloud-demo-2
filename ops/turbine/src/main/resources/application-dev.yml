@@ -1,8 +1,7 @@
 spring:
-  cloud:
-    config.server.native.searchLocations: >
-      classpath:/config/organization,
-      classpath:/config/zuul
+  rabbitmq:
+    username: rabbit
+    password: 123456
 eureka:
   instance:
     prefer-ip-address: true
@@ -11,4 +10,4 @@ eureka:
     serviceUrl:
       defaultZone: http://cluster01:8761/eureka/
 server:
-  port: 8888
+  port: 7702

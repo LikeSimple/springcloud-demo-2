@@ -1,6 +1,7 @@
 eureka:
   instance:
     hostname: ${spring.application.name}
+    prefer-ip-address: true
   #    lease-renewal-interval-in-seconds: 30 服务和注册中心的心跳间隔时间，默认为30s
   #    lease-expiration-duration-in-seconds: 90 服务和注册中心的心跳超时时间，默认为90s
   #    environment:
@@ -16,6 +17,6 @@ eureka:
     #      zone-1: http://localhost:${server.port}/eureka/
     #      zone-2: http://localhost:${server.port}/eureka/
     serviceUrl:
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://cluster01:${server.port}/eureka/
 server:
   port: 8761

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: service-turbine
   profiles:
     active: dev
 management:
@@ -9,21 +11,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-
----
-spring:
-  profiles: dev
-  application:
-    name: service-turbine
-  rabbitmq:
-    username: rabbit
-    password: 123456
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: ${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://registry-server-1:8091/eureka/,http://registry-server-2:8092/eureka/,http://registry-server-3:8093/eureka/
-server:
-  port: 5555
