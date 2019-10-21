@@ -72,17 +72,17 @@
                 <artifactId>mysql</artifactId>
                 <version>1.12.2</version>
             </dependency>
-            <!-- Oracle 12C Jdbc 驱动 -->
+            <!-- Oracle 11gR2 Jdbc 驱动 -->
             <dependency>
-                <groupId>com.oracle.jdbc</groupId>
-                <artifactId>ojdbc8</artifactId>
-                <version>12.2.0.1</version>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>11.2.0.4.0</version>
             </dependency>
-            <!-- Oracle 通用数据库连接池 -->
+            <!-- Oracle 11gR2 通用数据库连接池 -->
             <dependency>
-                <groupId>com.oracle.jdbc</groupId>
+                <groupId>com.oracle</groupId>
                 <artifactId>ucp</artifactId>
-                <version>12.2.0.1</version>
+                <version>11.2.0.3.0</version>
             </dependency>
             <!-- 常用基础工具类           -->
             <dependency>
