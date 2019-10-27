@@ -17,9 +17,9 @@
 
     <properties>
         <jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
-        <jdbcURL><![CDATA[jdbc:mysql://localhost:3306/spring_cloud_demo_organization?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true]]></jdbcURL>
+        <jdbcURL><![CDATA[jdbc:mysql://localhost:3306/spring_cloud_demo_oauth_client?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true]]></jdbcURL>
         <jdbcUserId>root</jdbcUserId>
-        <jdbcPassword>1234</jdbcPassword>
+        <jdbcPassword>123456</jdbcPassword>
     </properties>
 
     <dependencies>
