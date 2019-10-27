@@ -10,26 +10,24 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-import javax.sql.DataSource;
-
 @Configuration
 public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;
-
-    private DataSource datasource;
-
     private PasswordEncoder passwordEncoder;
+    private ClientDetailsService clientDetailsService;
 
-    public OAuthSecurityConfig(AuthenticationConfiguration configuration, DataSource datasource, PasswordEncoder passwordEncoder) throws Exception {
+    public OAuthSecurityConfig(AuthenticationConfiguration configuration, PasswordEncoder passwordEncoder,
+                               ClientDetailsService clientDetailsService) throws Exception {
         this.authenticationManager = configuration.getAuthenticationManager();
         this.passwordEncoder = passwordEncoder;
-        this.datasource = datasource;
+        this.clientDetailsService = clientDetailsService;
     }
 
     @Bean
@@ -47,19 +45,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-        // TODO CustomCl
-//        clients.withClientDetails(clientDetailService());
-        clients.jdbc(datasource).passwordEncoder(passwordEncoder);
-        // Just for demo
-//        clients.inMemory()
-//                .withClient("web_app")
-//                .secret(passwordEncoder.encode("web_secret"))
-//                .scopes("FOO")
-//                .autoApprove(true)
-//                .authorities("FOO_READ", "FOO_WRITE")
-//                .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code");
-
+        clients.withClientDetails(clientDetailsService);
     }
 
     @Override

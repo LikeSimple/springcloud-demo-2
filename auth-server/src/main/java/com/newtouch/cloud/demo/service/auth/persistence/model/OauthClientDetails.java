@@ -28,5 +28,5 @@ public class OauthClientDetails implements Serializable {
 
     private String autoapprove;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8703188792827098859L;
 }
