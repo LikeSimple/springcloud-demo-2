@@ -1,0 +1,22 @@
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: true
+  #    lease-renewal-interval-in-seconds: 30 服务和注册中心的心跳间隔时间，默认为30s
+  #    lease-expiration-duration-in-seconds: 90 服务和注册中心的心跳超时时间，默认为90s
+  #    environment:
+  #    data-center-info:
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    #    prefer-same-zone-eureka: true
+    #    region: shanghai
+    #    availability-zones:
+    #      shagnhai: zone-1,zone-2 #一定要注意availability-zones的顺序，必须把Service跟同一zone写在前面
+    #    serviceUrl:
+    #      zone-1: http://localhost:${server.port}/eureka/
+    #      zone-2: http://localhost:${server.port}/eureka/
+    serviceUrl:
+      defaultZone: http://eureka:${server.port}/eureka/
+server:
+  port: 8761

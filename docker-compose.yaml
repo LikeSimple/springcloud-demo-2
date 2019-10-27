@@ -42,7 +42,7 @@ services:
       - "8761:8761"
     environment:
       TZ: "Asia/Shanghai"
-      JAVA_OPTS: "-Xms64m -Xmx64m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      JAVA_OPTS: "-Xms64m -Xmx64m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
     mem_limit: 128MB
   mq:
     image: rabbitmq:3.7.19-management-alpine
