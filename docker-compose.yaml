@@ -1,5 +1,49 @@
 version: "2.4"
 services:
+  hystrix-dashboard:
+    image: registry.onetest.newtouch.com/demo/hystrix-dashboard:1.0.0.RELEASE
+    networks:
+      - demo
+    ports:
+      - "7703:7703"
+    environment:
+      TZ: "Asia/Shanghai"
+      JAVA_OPTS: "-Xms128m -Xmx128m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
+    mem_limit: 256MB
+    depends_on:
+      - mq
+  turbine:
+    image: registry.onetest.newtouch.com/demo/turbine:1.0.0.RELEASE
+    networks:
+      - demo
+    ports:
+      - "7702:7702"
+    environment:
+      TZ: "Asia/Shanghai"
+      JAVA_OPTS: "-Xms128m -Xmx128m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
+    mem_limit: 256MB
+    depends_on:
+      - mq
+  admin:
+    image: registry.onetest.newtouch.com/demo/admin:1.0.0.RELEASE
+    networks:
+      - demo
+    ports:
+      - "7701:7701"
+    environment:
+      TZ: "Asia/Shanghai"
+      JAVA_OPTS: "-Xms128m -Xmx128m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
+    mem_limit: 256MB
+  eureka:
+    image: registry.onetest.newtouch.com/demo/eureka:1.0.0.RELEASE
+    networks:
+      - demo
+    ports:
+      - "8761:8761"
+    environment:
+      TZ: "Asia/Shanghai"
+      JAVA_OPTS: "-Xms64m -Xmx64m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+    mem_limit: 128MB
   mq:
     image: rabbitmq:3.7.19-management-alpine
     networks:
@@ -24,10 +68,22 @@ services:
     volumes:
       - "./scripts/mysql:/docker-entrypoint-initdb.d/"
     environment:
-      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_ROOT_PASSWORD: "123456"
       TZ: "Asia/Shanghai"
-    restart: on-failure
     mem_limit: 512MB
+  oracle:
+    image: oracle/database:11.2.0.2-xe
+    networks:
+      - demo
+    ports:
+      - "1521:1521"
+      - "8000:8080"
+    shm_size: 1g
+    volumes:
+      - "./scripts/oracle:/u01/app/oracle/scripts/startup"
+    environment:
+      TZ: "Asia/Shanghai"
+      ORACLE_PWD: 123456
   redis:
     image: redis:4.0.14-alpine
     networks:
@@ -47,6 +103,7 @@ services:
     environment:
       TZ: "Asia/Shanghai"
       RABBIT_URI: "amqp://rabbit:123456@mq:5672"
+    mem_limit: 256MB
     depends_on:
       - mq
 networks:

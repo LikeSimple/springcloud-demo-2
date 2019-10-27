@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: user-authority
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

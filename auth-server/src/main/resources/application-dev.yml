@@ -1,0 +1,12 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: http://cluster01:8761/eureka/
+
+spring:
+  devtools:
+    remote:
+      secret: newtouch # 仅用于开发测试环境，生产环境部署不要配置该属性，置空即可

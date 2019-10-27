@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.newtouch.cloud</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.newtouch.cloud.demo</groupId>
@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>organization</module>
         <module>zuul</module>
+        <module>user-authority</module>
     </modules>
 
     <dependencies>
@@ -79,13 +79,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <!-- 接口文档生成支持 -->
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>1.8.0.RELEASE</version>
+        </dependency>
+        <!-- 业务通用类支持 -->
+        <dependency>
+            <groupId>com.newtouch.cloud.demo</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

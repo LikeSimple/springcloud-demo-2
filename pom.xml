@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.newtouch.cloud</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>newtouch-cloud-parent</name>
     <description>Micro Services presentation for Spring Cloud by Newtouch Ltd.</description>
@@ -41,6 +41,7 @@
         <module>eureka-server</module>
         <module>config-server</module>
         <module>auth-server</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>
@@ -64,7 +65,12 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.1.0</version>
+                <version>2.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.12</version>
             </dependency>
             <!-- 自动化测试容器支持-->
             <dependency>
@@ -74,43 +80,27 @@
             </dependency>
             <!-- Oracle 11gR2 Jdbc 驱动 -->
             <dependency>
-                <groupId>com.oracle</groupId>
+                <groupId>com.oracle.ojdbc</groupId>
                 <artifactId>ojdbc6</artifactId>
                 <version>11.2.0.4.0</version>
             </dependency>
             <!-- Oracle 11gR2 通用数据库连接池 -->
             <dependency>
-                <groupId>com.oracle</groupId>
+                <groupId>com.oracle.ojdbc</groupId>
                 <artifactId>ucp</artifactId>
                 <version>11.2.0.3.0</version>
             </dependency>
-            <!-- 常用基础工具类           -->
+            <!-- 常用基础工具类 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
-    <profiles>
-        <profile>
-            <id>main</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>maven.oracle.com</id>
-                    <url>https://maven.oracle.com</url>
-                    <layout>default</layout>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
     <build>
         <pluginManagement>
             <plugins>

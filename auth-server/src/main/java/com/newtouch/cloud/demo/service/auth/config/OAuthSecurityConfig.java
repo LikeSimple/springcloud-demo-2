@@ -48,6 +48,8 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
+        // TODO CustomCl
+//        clients.withClientDetails(clientDetailService());
         clients.jdbc(datasource).passwordEncoder(passwordEncoder);
         // Just for demo
 //        clients.inMemory()

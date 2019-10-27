@@ -199,3 +199,5 @@ fabric.properties
 .cvsignore
 */.cvsignore
 
+### Oracle data
+oracle_data/
