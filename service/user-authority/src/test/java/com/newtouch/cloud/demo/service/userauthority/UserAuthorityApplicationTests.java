@@ -49,6 +49,7 @@ public class UserAuthorityApplicationTests {
 	@Autowired
 	private LoginUserMapper loginUserMapper;
 
+
 	public UserAuthorityApplicationTests() {
 
 	}

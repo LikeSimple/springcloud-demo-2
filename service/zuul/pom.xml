@@ -13,6 +13,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <name>service-zuul</name>
     <description>zuul gateway for services</description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

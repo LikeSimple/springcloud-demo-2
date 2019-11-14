@@ -115,9 +115,11 @@ public class LoginOAuthClientDetails implements ClientDetails {
         if (null != oauthClientDetails.getAdditionalInformation()) {
             try {
 
-                return mapper.read(oauthClientDetails.getAdditionalInformation(), Map.class);
+                final Map read = mapper.read(oauthClientDetails.getAdditionalInformation(), Map.class);
+                return read;
 
             }
+
             catch (Exception e) {
                 log.warn("Could not decode JSON for additional information: " + oauthClientDetails.getAdditionalInformation(), e);
             }
