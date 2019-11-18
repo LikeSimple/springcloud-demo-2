@@ -16,3 +16,13 @@ spring:
     password: 123456
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+security:
+  oauth2:
+    authorization:
+      jwt:
+        key-store: "classpath:jwt.jks"
+        key-store-password: www.newtouch.com
+        key-alias: jwt
+      check-token-access: "isAuthenticated()"
+      token-key-access: "permitAll()"
+

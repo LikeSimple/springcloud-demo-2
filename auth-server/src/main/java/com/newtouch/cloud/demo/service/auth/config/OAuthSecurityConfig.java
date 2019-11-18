@@ -1,46 +1,45 @@
 package com.newtouch.cloud.demo.service.auth.config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
+import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 @Configuration
+@EnableAuthorizationServer
+@EnableConfigurationProperties(AuthorizationServerProperties.class)
+@Import(AuthorizationServerTokenServicesConfiguration.class)
 public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;
     private PasswordEncoder passwordEncoder;
     private ClientDetailsService clientDetailsService;
+    private final TokenStore tokenStore;
+    private final AccessTokenConverter tokenConverter;
+    private AuthorizationServerProperties properties;
 
     public OAuthSecurityConfig(AuthenticationConfiguration configuration, PasswordEncoder passwordEncoder,
-                               ClientDetailsService clientDetailsService) throws Exception {
+                               ClientDetailsService clientDetailsService, ObjectProvider<TokenStore> tokenStore,
+                               ObjectProvider<AccessTokenConverter> tokenConverter, AuthorizationServerProperties properties) throws Exception {
         this.authenticationManager = configuration.getAuthenticationManager();
         this.passwordEncoder = passwordEncoder;
         this.clientDetailsService = clientDetailsService;
-    }
-
-    @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "www.newtouch.com".toCharArray());
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
-        return converter;
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
+        this.tokenStore = tokenStore.getIfAvailable();
+        this.tokenConverter = tokenConverter.getIfAvailable();
+        this.properties = properties;
     }
 
     @Override
@@ -51,12 +50,16 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
         security
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .tokenKeyAccess(properties.getTokenKeyAccess())
+                .checkTokenAccess(properties.getCheckTokenAccess())
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer()).authenticationManager(authenticationManager);
+        endpoints
+                .tokenStore(tokenStore)
+                .accessTokenConverter(tokenConverter)
+                .authenticationManager(authenticationManager); // support password flow
     }
 }

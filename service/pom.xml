@@ -57,8 +57,9 @@
         <!-- 访问安全 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
+
         <!-- Spring Boot 开发工具支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

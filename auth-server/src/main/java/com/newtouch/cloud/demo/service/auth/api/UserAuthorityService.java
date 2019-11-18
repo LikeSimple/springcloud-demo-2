@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(value = "user-authority", fallback = UserAuthorityServiceFallBack.class)
+@FeignClient(value = "user-authority", path = "/user-authority", fallback = UserAuthorityServiceFallBack.class)
 public interface UserAuthorityService {
 
     @PostMapping("/by-name")
