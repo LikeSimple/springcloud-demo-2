@@ -40,7 +40,6 @@
         <module>ops</module>
         <module>eureka-server</module>
         <module>config-server</module>
-        <module>auth-server</module>
         <module>common</module>
     </modules>
 

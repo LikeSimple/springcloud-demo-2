@@ -10,9 +10,9 @@ Spring Cloud|Greenwich SR3|✓
 Oracle DB|11.2.0.1.0|✓
 Redis|4.0.14|✓
 RabbitMQ|3.7.19|✓
-Docker|18.04|
+Docker|18.06+|
 Docker-compose|1.24.1|
-
+Docker-compose File|3.7|
 ## 项目架构
 
 ## 开发环境配置
