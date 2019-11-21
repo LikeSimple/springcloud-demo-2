@@ -41,9 +41,9 @@ create table newtouch.system_user
     id char(22) not null
         primary key,
     username varchar(30) not null,
-    password char(60) not null,
-    enabled number(3,0) default 1 not null,
-    locked number(3,0) default 0 not null,
+    password char(68) not null,
+    enabled CHAR(1) default '1' not null,
+    locked CHAR(1) default '0' not null,
     account_expire date null,
     credential_expire date null,
     created_time date default CURRENT_TIMESTAMP not null,

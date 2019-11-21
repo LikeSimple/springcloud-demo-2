@@ -1,6 +1,6 @@
 eureka:
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
     hostname: ${spring.application.name}
   client:
     serviceUrl:
@@ -14,6 +14,24 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: newtouch
     password: 123456
+#  cloud:
+#    stream:
+#      bindings:
+#        user_info_input:
+#          destination: demo.user.search.messages
+#          binder: local_rabbit
+#        user_info_output:
+#          destination: demo.user.info.messages
+#          binder: local_rabbit
+#      binders:
+#        local_rabbit:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: localhost
+#                username: rabbit
+#                password: 123456
   rabbitmq:
     username: rabbit
     password: 123456

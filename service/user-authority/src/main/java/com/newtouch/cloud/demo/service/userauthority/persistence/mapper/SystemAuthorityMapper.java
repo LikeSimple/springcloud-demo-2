@@ -1,15 +1,10 @@
 package com.newtouch.cloud.demo.service.userauthority.persistence.mapper;
 
 import com.newtouch.cloud.demo.service.userauthority.persistence.model.SystemAuthority;
-import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
 
 @Mapper
 public interface SystemAuthorityMapper {

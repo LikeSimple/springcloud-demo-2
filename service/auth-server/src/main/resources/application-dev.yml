@@ -17,6 +17,27 @@ spring:
   rabbitmq:
     username: rabbit
     password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#  cloud:
+#    stream:
+#      bindings:
+#        login_user_info:
+#          destination: demo.user.info.messages
+#          binder: local_rabbit
+#        login_user_search:
+#          destination: demo.user.search.messages
+#          binder: local_rabbit
+#      binders:
+#        local_rabbit:
+#          type: rabbit
+#          environment:
+#            spring:
+#              rabbitmq:
+#                host: localhost
+#                username: rabbit
+#                password: 123456
 security:
   oauth2:
     authorization:
@@ -26,4 +47,6 @@ security:
         key-alias: jwt
       check-token-access: "isAuthenticated()"
       token-key-access: "permitAll()"
-
+logging:
+  level:
+    com.newtouch.cloud.demo.service.auth.api.UserAuthorityService: debug

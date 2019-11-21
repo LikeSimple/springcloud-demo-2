@@ -1,13 +1,13 @@
 package com.newtouch.cloud.demo.service.userauthority.controller.criteria;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsernameCriteria {
 
-    @NotBlank(message = "用户名参数不能为空！")
     private String username;
 }

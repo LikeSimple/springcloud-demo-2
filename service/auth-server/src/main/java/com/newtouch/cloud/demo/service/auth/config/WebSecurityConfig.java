@@ -35,24 +35,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .httpBasic().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
                 .authorizeRequests().antMatchers("/.~~spring-boot!~/restart", "/actuator/**").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/**").authenticated()
-                .and()
-                .httpBasic().disable();
+                .anyRequest().authenticated();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication()
-                .withUser("test")
-                .password("{bcrypt}$2a$10$qnlY7ym4Wza4sc7nYslOb.3eYt0/dyYMFdS/3Xj1ctSDh6MGq1YJq")
-                .authorities("ROLE_ADMIN","ROLE_TEST")
-                .and().passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//        auth.inMemoryAuthentication()
+//                .withUser("test")
+//                .password("{bcrypt}$2a$10$qnlY7ym4Wza4sc7nYslOb.3eYt0/dyYMFdS/3Xj1ctSDh6MGq1YJq")
+//                .authorities("ROLE_ADMIN","ROLE_TEST")
+//                .and().passwordEncoder(passwordEncoder());
     }
 
 }

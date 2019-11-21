@@ -1,4 +1,4 @@
-package com.newtouch.cloud.demo.service.userauthority.persistence.model;
+package com.newtouch.cloud.demo.service.auth.api.dto;
 
 import lombok.Data;
 

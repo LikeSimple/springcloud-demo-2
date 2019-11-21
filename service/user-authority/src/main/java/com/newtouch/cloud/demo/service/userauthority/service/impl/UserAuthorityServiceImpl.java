@@ -7,11 +7,13 @@ import com.newtouch.cloud.demo.service.userauthority.persistence.mapper.SystemUs
 import com.newtouch.cloud.demo.service.userauthority.persistence.model.LoginUser;
 import com.newtouch.cloud.demo.service.userauthority.persistence.model.SystemUser;
 import com.newtouch.cloud.demo.service.userauthority.service.UserAuthorityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserAuthorityServiceImpl implements UserAuthorityService {
 
     private LoginUserMapper loginUserMapper;
@@ -24,7 +26,10 @@ public class UserAuthorityServiceImpl implements UserAuthorityService {
 
     @Override
     public LoginUser getByUsername(String username) {
-        return loginUserMapper.getByUsername(username);
+        LoginUser loginUser = loginUserMapper.getByUsername(username);
+        if (null == loginUser) log.info("没有找到用户：" + username + "！");
+        else log.info("找到用户信息：" + loginUser.toString());
+        return loginUser;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.newtouch.cloud.demo.service.auth.api;
 
-import com.newtouch.cloud.demo.service.auth.api.criteria.UsernameCriteria;
+import com.newtouch.cloud.demo.service.auth.api.dto.LoginUser;
+import com.newtouch.cloud.demo.service.auth.api.dto.UsernameCriteria;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserAuthorityServiceFallBack implements UserAuthorityService {
 
     @Override
-    public UserDetails getSystemUserByUsername(UsernameCriteria usernameCriteria) {
+    public LoginUser getSystemUserByUsername(UsernameCriteria usernameCriteria) {
         String logStr = String.format("%s not find.", usernameCriteria.getUsername());
         log.info(logStr);
         throw new UsernameNotFoundException(logStr);

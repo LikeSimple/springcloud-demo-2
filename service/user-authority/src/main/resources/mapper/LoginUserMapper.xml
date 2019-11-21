@@ -23,7 +23,7 @@
 
     <resultMap id="LoginUser" type="com.newtouch.cloud.demo.service.userauthority.persistence.model.LoginUser">
         <association property="systemUser" resultMap="currentUser" />
-        <collection property="systemAuthorities" resultMap="systemAuthorities" />
+        <collection property="systemAuthorities" resultMap="systemAuthorities"  />
     </resultMap>
 
     <sql id="loginUserInfo">
