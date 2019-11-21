@@ -8,32 +8,43 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath><!-- lookup parent from repository -->
     </parent>
-
     <groupId>com.newtouch.cloud.demo</groupId>
-    <artifactId>config-server</artifactId>
+    <artifactId>auth-server</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>config-server</name>
-    <description>config server for services</description>
+    <name>auth-server</name>
+    <description>auth server for service</description>
     <packaging>jar</packaging>
+
+    <properties>
+        <jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
+        <jdbcURL><![CDATA[jdbc:mysql://localhost:3306/spring_cloud_demo_oauth_client?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true]]></jdbcURL>
+        <jdbcUserId>root</jdbcUserId>
+        <jdbcPassword>123456</jdbcPassword>
+    </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- 访问安全 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-oauth2</artifactId>-->
-<!--        </dependency>-->
-        <!-- 消息总线支持 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-bus</artifactId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <!-- 数据库支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <!-- Eureka 注册支持 -->
         <dependency>
@@ -45,14 +56,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- Zipkin 链路跟踪支持 -->
+        <!-- 断路器监控 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
         </dependency>
+        <!-- 使用 RabbitMQ 做为断路器监控队列 -->
         <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
         <!-- Spring Boot 开发工具支持 -->
         <dependency>
@@ -84,8 +96,14 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
+            <artifactId>mysql</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- 接口文档生成支持 -->
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+            <version>1.8.0.RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -94,7 +112,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 远程Debug支持，仅用于开发测试 -->
+                <configuration>
+                    <excludeDevtools>false</excludeDevtools>
+                </configuration>
             </plugin>
+            <!-- 容器镜像打包支持 -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
@@ -116,7 +139,25 @@
                     </buildArgs>
                 </configuration>
             </plugin>
+            <!-- flyway数据库集成支持  -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.0.7</version>
+                <configuration>
+                    <driver>${jdbcDriver}</driver>
+                    <url>${jdbcURL}</url>
+                    <user>${jdbcUserId}</user>
+                    <password>${jdbcPassword}</password>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.47</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
-
 </project>

@@ -17,7 +17,6 @@
     <modules>
         <module>zuul</module>
         <module>user-authority</module>
-        <module>auth-server</module>
     </modules>
 
     <dependencies>
@@ -31,10 +30,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.jolokia</groupId>-->
-        <!--            <artifactId>jolokia-core</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+        <!-- Zipkin 链路跟踪支持 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+        </dependency>
         <!-- hystrix stream 断路器监控支持 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -60,7 +68,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-
         <!-- Spring Boot 开发工具支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

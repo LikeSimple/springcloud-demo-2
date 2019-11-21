@@ -36,6 +36,7 @@ create table newtouch.system_role_authority
 );
 comment on table newtouch.system_role_authority is '系统角色权限';
 
+drop table newtouch.SYSTEM_USER;
 create table newtouch.system_user
 (
     id char(22) not null
@@ -53,6 +54,7 @@ create table newtouch.system_user
 );
 comment on table newtouch.system_user is '系统管理员';
 
+drop table newtouch.SYSTEM_USER_ROLE;
 create table newtouch.system_user_role
 (
     system_user_id char(22) not null,

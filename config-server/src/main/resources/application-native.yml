@@ -3,6 +3,12 @@ spring:
     config.server.native.searchLocations: >
       classpath:/config/organization,
       classpath:/config/zuul
+  rabbitmq:
+    username: rabbit
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 eureka:
   instance:
     prefer-ip-address: true
