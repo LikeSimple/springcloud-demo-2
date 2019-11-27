@@ -7,10 +7,10 @@
         <groupId>com.newtouch.cloud</groupId>
         <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.newtouch.cloud.demo</groupId>
     <artifactId>ops</artifactId>
+    <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <modules>

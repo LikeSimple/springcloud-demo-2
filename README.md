@@ -84,6 +84,12 @@ Docker-compose File|3.7|
   cd [项目根目录]
   mvn clean package -Dmaven.test.skip=true
   ```
+  指定项目编译
+  ```bash
+  cd [项目根目录]
+  mvn clean package -Dmaven.test.skip=true --projects :common,:user-info # user-info子项目依赖子项目common
+  ```
+  
 ### 启动及测试
 - （可选）启动依赖环境组件（MySQL、ORACLE、REDIS、RabbitMQ、Spring Boot Admin、Eureka、Turbine、Hystrix Dashboard、Zipkin）
   ```bash

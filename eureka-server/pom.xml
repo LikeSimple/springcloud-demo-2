@@ -6,9 +6,7 @@
         <groupId>com.newtouch.cloud</groupId>
         <artifactId>parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-
     <groupId>com.newtouch.cloud.demo</groupId>
     <artifactId>eureka</artifactId>
     <version>1.0.0.RELEASE</version>
