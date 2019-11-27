@@ -16,7 +16,7 @@
 
     <modules>
         <module>zuul</module>
-        <module>user-authority</module>
+        <module>user-info</module>
     </modules>
 
     <dependencies>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.cloud.demo.auth.persistence.mapper.LoginUserMapper">
+    <resultMap id="currentUser" type="com.newtouch.cloud.demo.auth.persistence.model.SystemUser">
+        <result column="id" property="id" jdbcType="CHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="CHAR" />
+        <result column="enabled" property="enabled" jdbcType="BOOLEAN" />
+        <result column="locked" property="locked" jdbcType="BOOLEAN" />
+        <result column="account_expire" property="accountExpire" jdbcType="DATE" />
+        <result column="credential_expire" property="credentialExpire" jdbcType="DATE" />
+        <result column="created_time" property="createdTime" jdbcType="DATE" />
+        <result column="modified_time" property="modifiedTime" jdbcType="DATE" />
+    </resultMap>
+
+    <resultMap id="systemAuthorities" type="com.newtouch.cloud.demo.auth.persistence.model.SystemAuthority">
+        <result column="authority_id" property="id" jdbcType="CHAR" />
+        <result column="authority_name" property="name" jdbcType="VARCHAR" />
+        <result column="authority_description" property="description" jdbcType="VARCHAR" />
+        <result column="authority_created_time" property="createdTime" jdbcType="DATE" />
+        <result column="authority_modified_time" property="modifiedTime" jdbcType="DATE" />
+    </resultMap>
+
+    <resultMap id="LoginUser" type="com.newtouch.cloud.demo.auth.persistence.model.LoginUser">
+        <association property="systemUser" resultMap="currentUser" />
+        <collection property="systemAuthorities" resultMap="systemAuthorities"  />
+    </resultMap>
+
+    <sql id="loginUserInfo">
+        SELECT DISTINCT su.id, su.username, su.password, su.enabled, su.locked, su.account_expire, su.credential_expire, su.created_time, su.modified_time,
+                        sa.id AS authority_id, sa.name AS authority_name, sa.description AS authority_description, sa.created_time AS authority_created_time,
+                        sa.modified_time AS authority_modified_time
+        FROM system_user  su
+            INNER JOIN system_user_role sur ON su.id = sur.system_user_id
+            INNER JOIN system_role_authority sra ON sur.role_id = sra.role_id
+            INNER JOIN system_authority sa ON sra.authority_id = sa.id
+    </sql>
+
+    <select id="getByUsername" resultMap="LoginUser" resultType="com.newtouch.cloud.demo.auth.persistence.model.LoginUser" parameterType="string">
+        <include refid="loginUserInfo" />
+        <where>
+            AND su.USERNAME = #{username, jdbcType=VARCHAR}
+        </where>
+    </select>
+</mapper>

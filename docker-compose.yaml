@@ -59,7 +59,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "123456"
     mem_limit: 512MB
   db:
-    image: percona:5.7 # 数据库 MySQL 的 Percona 分之发行版
+    image: percona:5.7 # 数据库 MySQL 的 Percona 发行版
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --ignore-db-dir=lost+found
     networks:
       - demo

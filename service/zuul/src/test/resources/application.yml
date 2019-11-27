@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: service-zuul
+  profiles:
+    active: test
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+zuul.sensitiveHeaders: Cookie,Set-Cookie
