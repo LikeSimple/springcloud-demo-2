@@ -1,6 +1,7 @@
 package com.newtouch.cloud.demo.auth.config;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerTokenServicesConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -31,17 +33,21 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     private final TokenStore tokenStore;
     private final AccessTokenConverter tokenConverter;
     private AuthorizationServerProperties properties;
+    private UserDetailsService userDetailsService;
 
     public OAuthSecurityConfig(AuthenticationConfiguration configuration, PasswordEncoder passwordEncoder,
                                DataSource datasource,
                                ObjectProvider<TokenStore> tokenStore,
-                               ObjectProvider<AccessTokenConverter> tokenConverter, AuthorizationServerProperties properties) throws Exception {
+                               ObjectProvider<AccessTokenConverter> tokenConverter,
+                               AuthorizationServerProperties properties,
+                               @Qualifier("newtouchUserDetailsService") UserDetailsService userDetailsService) throws Exception {
         this.authenticationManager = configuration.getAuthenticationManager();
         this.passwordEncoder = passwordEncoder;
         this.dataSource = datasource;
         this.tokenStore = tokenStore.getIfAvailable();
         this.tokenConverter = tokenConverter.getIfAvailable();
         this.properties = properties;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -70,6 +76,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
                 .tokenStore(tokenStore)
                 .accessTokenConverter(tokenConverter)
                 .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
                 .reuseRefreshTokens(false);// support password flow
     }
 }
