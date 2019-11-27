@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-authority
+    name: user-info
   profiles:
     active: dev
 management:

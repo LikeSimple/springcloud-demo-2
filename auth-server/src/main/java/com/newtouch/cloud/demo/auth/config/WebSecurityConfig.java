@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +18,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(@Qualifier("newtouchUserDetailsService") UserDetailsService userDetailsService) {
+    private PasswordEncoder passwordEncoder;
+
+    public WebSecurityConfig(
+            @Qualifier("newtouchUserDetailsService") UserDetailsService userDetailsService,
+            PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,9 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {return PasswordEncoderFactories.createDelegatingPasswordEncoder();}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -48,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 //        auth.inMemoryAuthentication()
 //                .withUser("test")
 //                .password("{bcrypt}$2a$10$qnlY7ym4Wza4sc7nYslOb.3eYt0/dyYMFdS/3Xj1ctSDh6MGq1YJq")

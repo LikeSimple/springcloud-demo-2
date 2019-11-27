@@ -16,7 +16,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
-                .authorizeRequests().antMatchers("/.~~spring-boot!~/restart", "/actuator/**", "/by-name").permitAll()
+                .authorizeRequests().antMatchers("/.~~spring-boot!~/restart", "/actuator/**", "/register").permitAll()
                 .anyRequest().authenticated();
     }
 

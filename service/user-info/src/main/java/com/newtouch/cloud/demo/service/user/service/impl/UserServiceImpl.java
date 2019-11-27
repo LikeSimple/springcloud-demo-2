@@ -31,11 +31,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(@NotNull UserCriteria userCriteria) {
 
+        // TODO 用户名查重
+
+        // 保存用户信息
+        SystemUserInfo userInfo = new SystemUserInfo(userCriteria);
+        Assert.isTrue(1 == userInfoMapper.insert(userInfo), "用户保存失败！ userInfo=" + userInfo.toString());
+
         // Send User Registration Info to Auth Service
         userRegistrationProcessor.output().send(MessageBuilder.withPayload(new UserRegistrationMessage(USER_REGISTER_ACTION, userCriteria)).build());
 
-        // Save User Info
-        SystemUserInfo userInfo = new SystemUserInfo(userCriteria);
-        Assert.isTrue(1 == userInfoMapper.insert(userInfo), "用户保存失败！ userInfo=" + userInfo.toString());
     }
 }

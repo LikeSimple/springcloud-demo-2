@@ -17,6 +17,7 @@ spring:
   rabbitmq:
     username: rabbit
     password: 123456
+    host: localhost
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

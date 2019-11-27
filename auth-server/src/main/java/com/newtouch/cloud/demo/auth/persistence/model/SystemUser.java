@@ -1,11 +1,15 @@
 package com.newtouch.cloud.demo.auth.persistence.model;
 
+import com.newtouch.cloud.demo.auth.message.UserRegistrationMessage;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class SystemUser implements Serializable {
     private String id;
 
@@ -26,4 +30,20 @@ public class SystemUser implements Serializable {
     private Date modifiedTime;
 
     private static final long serialVersionUID = 1136209829987095175L;
+
+    public SystemUser(UserRegistrationMessage userRegistrationMessage, PasswordEncoder passwordEncoder) {
+
+        this.id = userRegistrationMessage.getId();
+
+        this.username = userRegistrationMessage.getUsername();
+
+        this.password = passwordEncoder.encode(userRegistrationMessage.getPassword().trim());
+
+        this.enabled = Boolean.TRUE;
+
+        this.locked = Boolean.FALSE;
+
+        createdTime = new Date();
+
+    }
 }
