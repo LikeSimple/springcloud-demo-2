@@ -89,17 +89,26 @@ Docker-compose File|3.7|
   cd [项目根目录]
   mvn clean package -Dmaven.test.skip=true --projects :common,:user-info # user-info子项目依赖子项目common
   ```
-  
+  全量项目镜像打包
+  ```bash
+  cd [项目根目录]
+  mvn dockerfile:build
+  ```
+  指定项目镜像打包
+  ```bash
+  cd [项目根目录]
+  mvn dockerfile:build --projects :user-info,:zuul
+  ```
 ### 启动及测试
 - （可选）启动依赖环境组件（MySQL、ORACLE、REDIS、RabbitMQ、Spring Boot Admin、Eureka、Turbine、Hystrix Dashboard、Zipkin）
   ```bash
   cd [项目根目录]
-  docker-compose up -d
+  docker-compose -f docker-compose.yaml up -d
   ```
 - 顺序启动子项目
   ```bash
 
-```
+  ```
 ## 特性说明
 
 ### Maven插件
