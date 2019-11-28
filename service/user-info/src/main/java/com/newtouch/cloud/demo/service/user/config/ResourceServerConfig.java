@@ -16,7 +16,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
-                .authorizeRequests().antMatchers("/.~~spring-boot!~/restart", "/actuator/**", "/register").permitAll()
+                .authorizeRequests().antMatchers("/.~~spring-boot!~/restart", "/actuator/**", "/register", "/v2/api-docs/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**").permitAll()
                 .anyRequest().authenticated();
     }
 

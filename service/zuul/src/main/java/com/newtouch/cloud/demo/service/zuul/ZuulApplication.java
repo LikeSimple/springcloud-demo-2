@@ -22,14 +22,5 @@ public class ZuulApplication {
         SpringApplication.run(ZuulApplication.class, args);
     }
 
-//    @Bean
-//    public RequestContextListener requestContextListener() {
-//        return new RequestContextListener();
-//    }
 
-//    @Bean
-//    @LoadBalanced
-//    OAuth2RestTemplate oauth2RestTemplate(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails details) {
-//        return new OAuth2RestTemplate(details, oauth2ClientContext);
-//    }
 }
