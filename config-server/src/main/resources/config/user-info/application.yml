@@ -10,3 +10,5 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+swagger:
+  base-package: com.newtouch.cloud.demo.service.user.controller

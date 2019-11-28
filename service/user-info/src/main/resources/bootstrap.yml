@@ -3,5 +3,3 @@ spring:
     name: user-info
   profiles:
     active: dev
-swagger:
-  base-package: com.newtouch.cloud.demo.service.user.controller
