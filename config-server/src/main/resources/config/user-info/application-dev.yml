@@ -1,17 +1,20 @@
 server:
   port: 7501
 spring:
+  sleuth:
+    sampler:
+      percentage: 1
   devtools:
     remote:
       secret: newtouch # 仅用于开发测试环境，生产环境部署不要配置该属性，置空即可
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:XE
+    url: "jdbc:oracle:thin:@localhost:1521:XE"
     username: newtouch
-    password: 123456
+    password: "{cipher}AQAGo/G3MiqK0xY/GcXES8JXmP+4HuAMi71TEAJOkgGF6ldkhy9+i9i+c5GuKSnmc0RvwdblkwmwFZVnnyQ3BwMlwNFPbphXNG1Zj4CEofRFlWeVewjbyTxs/F31Sb77JPZNSdajs8lnQEwxNZzbopcmASd8SR6rnCJ4V/2bbEblrUmDq9Wi1qjywIkKvi67apWzSLIHevcPDuPGCVnhBgseEGplORByaYccG8JNDNR8tpfkNuaLtKjSNDXMWlbAcBXvDZJaqnjEmhHAYj6FFAAPXKFU4WgAA3yD1dABdqX5y2KKyAy2H8G9X8oTBttuwePd1UhHMSJue3KyPpDf4oMCa3vFHx2tS7sND3wQuPrzaNog53nUWmLI4duAJmN1wgg="
   rabbitmq:
     username: rabbit
-    password: 123456
+    password: "{cipher}AQBdLWSOVRH+18G3ON+xKOCOV41SaUPI5UFSvacL6A3GF+Hb+3BQzNl4EcQNEcdPFkKJgIlo2435pJD5+y3yF37u2dhZ600DMVgJBAc1zqj59x6WubE8/NedT2vD5C+hqdwNw+FVmwdRnms7oLTfXncFHsd+6FekIIReXsmFFJrbHJYi2OQjFASocDLXhO6Zn2PpxqkZ+EtlCVd3FMMHLwDZ/nAsdWon7O4es2FIZ8Vof98SFnuqBn3pKFtYF9uLLcD656pveTZR5PqAddGLsg3ae+lUUW5h5u3t5eBMJaMAjkfz8dJU43Vm4bJPcaCL0nhm2y8TwDtb7hv9VdvzZNycmnXMcRRyOII2oE6YHHxSj2gIdshwgbnZqYVGacoAczk="
     host: localhost
   cloud:
     stream:
@@ -27,7 +30,7 @@ spring:
               rabbitmq:
                 host: localhost
                 username: rabbit
-                password: 123456
+                password: "{cipher}AQBdLWSOVRH+18G3ON+xKOCOV41SaUPI5UFSvacL6A3GF+Hb+3BQzNl4EcQNEcdPFkKJgIlo2435pJD5+y3yF37u2dhZ600DMVgJBAc1zqj59x6WubE8/NedT2vD5C+hqdwNw+FVmwdRnms7oLTfXncFHsd+6FekIIReXsmFFJrbHJYi2OQjFASocDLXhO6Zn2PpxqkZ+EtlCVd3FMMHLwDZ/nAsdWon7O4es2FIZ8Vof98SFnuqBn3pKFtYF9uLLcD656pveTZR5PqAddGLsg3ae+lUUW5h5u3t5eBMJaMAjkfz8dJU43Vm4bJPcaCL0nhm2y8TwDtb7hv9VdvzZNycmnXMcRRyOII2oE6YHHxSj2gIdshwgbnZqYVGacoAczk="
   swagger:
     show: true
 security:
@@ -40,7 +43,7 @@ security:
           -----END PUBLIC KEY-----
 #        key-uri: http://auth-server:9999/oauth/token_key # TODO 不能通过Eureka Client来解析服务地址
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: "classpath:mapper/*.xml"
 ribbon:
   eager-load:
     clients: auth-server

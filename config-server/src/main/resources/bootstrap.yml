@@ -14,6 +14,12 @@ spring:
     user:
       name: demo
       password: demo
+encrypt:
+  key-store:
+    location: "classpath:key.jks"
+    password: www.newtouch.com
+    alias: encrptkey
+    secret: www.newtouch.com
 management:
   endpoints:
     web:

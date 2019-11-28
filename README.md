@@ -64,70 +64,69 @@ Docker-compose|1.24.1|
       └── pom.xml
       
 ## 快速启动步骤
-  ```bash
-  git clone https://github.com/LikeSimple/springcloud-demo-2.git
-  cd springcloud-demo-2
-  
-  # 后续命令如无特殊标注，均指项目根目录下  
-  ```
-### 1. 全量编译
+### 1. 克隆项目到本地
+    ```bash
+    git clone https://github.com/LikeSimple/springcloud-demo-2.git
+    cd springcloud-demo-2
+    # 后续命令如无特殊标注，均指项目根目录下  
+    ```
+### 2. 全量编译
   ```bash
   mvn clean package -Dmaven.test.skip=true
-
-  ...
-  [INFO] Reactor Summary:
-  [INFO] 
-  [INFO] newtouch-cloud-parent 1.0.0-SNAPSHOT ............... SUCCESS [  0.264 s]
-  [INFO] common 1.0.0-SNAPSHOT .............................. SUCCESS [  0.033 s]
-  [INFO] service 1.0.0-SNAPSHOT ............................. SUCCESS [  0.003 s]
-  [INFO] service-zuul 1.0.0-SNAPSHOT ........................ SUCCESS [  0.083 s]
-  [INFO] user-info 1.0.0-SNAPSHOT ........................... SUCCESS [  0.021 s]
-  [INFO] ops 1.0.0.RELEASE .................................. SUCCESS [  0.002 s]
-  [INFO] admin-server 1.0.0.RELEASE ......................... SUCCESS [  0.016 s]
-  [INFO] turbine-server 1.0.0.RELEASE ....................... SUCCESS [  0.018 s]
-  [INFO] hystrix-dashboard 1.0.0.RELEASE .................... SUCCESS [  0.016 s]
-  [INFO] eureka-server 1.0.0.RELEASE ........................ SUCCESS [  0.012 s]
-  [INFO] auth-server 1.0.0-SNAPSHOT ......................... SUCCESS [  0.022 s]
-  [INFO] config-server 1.0.0-SNAPSHOT ....................... SUCCESS [  0.019 s]
-  [INFO] ------------------------------------------------------------------------
-  [INFO] BUILD SUCCESS
-  [INFO] ------------------------------------------------------------------------
-  [INFO] Total time:  1.144 s
-  [INFO] Finished at: 2019-11-28T14:53:40+08:00
   ```
-### 2. 服务依赖镜像打包
+      ...
+      [INFO] Reactor Summary:
+      [INFO] 
+      [INFO] newtouch-cloud-parent 1.0.0-SNAPSHOT ............... SUCCESS [  0.264 s]
+      [INFO] common 1.0.0-SNAPSHOT .............................. SUCCESS [  0.033 s]
+      [INFO] service 1.0.0-SNAPSHOT ............................. SUCCESS [  0.003 s]
+      [INFO] service-zuul 1.0.0-SNAPSHOT ........................ SUCCESS [  0.083 s]
+      [INFO] user-info 1.0.0-SNAPSHOT ........................... SUCCESS [  0.021 s]
+      [INFO] ops 1.0.0.RELEASE .................................. SUCCESS [  0.002 s]
+      [INFO] admin-server 1.0.0.RELEASE ......................... SUCCESS [  0.016 s]
+      [INFO] turbine-server 1.0.0.RELEASE ....................... SUCCESS [  0.018 s]
+      [INFO] hystrix-dashboard 1.0.0.RELEASE .................... SUCCESS [  0.016 s]
+      [INFO] eureka-server 1.0.0.RELEASE ........................ SUCCESS [  0.012 s]
+      [INFO] auth-server 1.0.0-SNAPSHOT ......................... SUCCESS [  0.022 s]
+      [INFO] config-server 1.0.0-SNAPSHOT ....................... SUCCESS [  0.019 s]
+      [INFO] ------------------------------------------------------------------------
+      [INFO] BUILD SUCCESS
+      [INFO] ------------------------------------------------------------------------
+      [INFO] Total time:  1.144 s
+      [INFO] Finished at: 2019-11-28T14:53:40+08:00
+  
+### 3. 服务依赖镜像打包
   ```bash
   mvn dockerfile:build --projects :turbine-server,:hystrix-dashboard,:eureka,:admin-server
-
-  ...
-  [INFO] Reactor Summary for admin-server 1.0.0.RELEASE:
-  [INFO] 
-  [INFO] admin-server ....................................... SUCCESS [ 11.167 s]
-  [INFO] turbine-server ..................................... SUCCESS [ 10.514 s]
-  [INFO] hystrix-dashboard .................................. SUCCESS [  8.823 s]
-  [INFO] eureka-server ...................................... SUCCESS [  9.305 s]
-  [INFO] ------------------------------------------------------------------------
-  [INFO] BUILD SUCCESS
-  [INFO] ------------------------------------------------------------------------
-  [INFO] Total time:  40.462 s
-  [INFO] Finished at: 2019-11-28T15:24:19+08:00
   ```
-### 3. 依赖环境启动:
+      ...
+      [INFO] Reactor Summary for admin-server 1.0.0.RELEASE:
+      [INFO] 
+      [INFO] admin-server ....................................... SUCCESS [ 11.167 s]
+      [INFO] turbine-server ..................................... SUCCESS [ 10.514 s]
+      [INFO] hystrix-dashboard .................................. SUCCESS [  8.823 s]
+      [INFO] eureka-server ...................................... SUCCESS [  9.305 s]
+      [INFO] ------------------------------------------------------------------------
+      [INFO] BUILD SUCCESS
+      [INFO] ------------------------------------------------------------------------
+      [INFO] Total time:  40.462 s
+      [INFO] Finished at: 2019-11-28T15:24:19+08:00
+
+### 3. 使用Docker-Compose启动依赖环境
   ```bash
   docker-compose up -d
-
-  Creating springcloud-demo-2_redis_1  ... done
-  Creating springcloud-demo-2_eureka_1 ... done
-  Creating springcloud-demo-2_mq_1     ... done
-  Creating springcloud-demo-2_oracle_1 ... done
-  Creating springcloud-demo-2_db_1     ... done
-  Creating springcloud-demo-2_admin_1  ... done
-  Creating springcloud-demo-2_turbine_1           ... done
-  Creating springcloud-demo-2_zipkin_1            ... done
-  Creating springcloud-demo-2_hystrix-dashboard_1 ... done
   ```
+      Creating springcloud-demo-2_redis_1  ... done
+      Creating springcloud-demo-2_eureka_1 ... done
+      Creating springcloud-demo-2_mq_1     ... done
+      Creating springcloud-demo-2_oracle_1 ... done
+      Creating springcloud-demo-2_db_1     ... done
+      Creating springcloud-demo-2_admin_1  ... done
+      Creating springcloud-demo-2_turbine_1           ... done
+      Creating springcloud-demo-2_zipkin_1            ... done
+      Creating springcloud-demo-2_hystrix-dashboard_1 ... done
 
-  - 检查服务启动是否成功，启动根据系统处理能力会花费较多时间(一般2-5分钟)
+  检查服务启动是否成功，启动根据系统处理能力会花费较多时间(一般2-5分钟)
   ```
   docker container list
 
@@ -143,47 +142,41 @@ Docker-compose|1.24.1|
   4198acc879d3        registry.onetest.newtouch.com/demo/eureka:1.0.0.RELEASE              "/bin/sh -c 'exec ja…"   About a minute ago   Up About a minute                      8090/tcp, 0.0.0.0:8761->8761/tcp                                                                           springcloud-demo-2_eureka_1
   461d460ebb1a        redis:4.0.14-alpine                                                  "docker-entrypoint.s…"   About a minute ago   Up About a minute                      0.0.0.0:6379->6379/tcp                                                                                     springcloud-demo-2_redis_1  ```
   ```
-
   执行以下命令可以清理依赖环境
   ```bash
   docker-compose down
   ```
 
-### 4. 数据库初始化
-
-
-- 执行数据库环境初始化命令
+### 4. 初始化数据库
+执行数据库环境初始化命令
   ```bash
   mvn flyway:migrate --projects :auth-server,:user-info
   ```
+      ...
+      [INFO] Reactor Summary for user-info 1.0.0-SNAPSHOT:
+      [INFO] 
+      [INFO] user-info .......................................... SUCCESS [  2.040 s]
+      [INFO] auth-server ........................................ SUCCESS [  0.748 s]
+      [INFO] ------------------------------------------------------------------------
+      [INFO] BUILD SUCCESS
+      [INFO] ------------------------------------------------------------------------
+      [INFO] Total time:  3.532 s
+      [INFO] Finished at: 2019-11-28T14:31:50+08:00
+      [INFO] ------------------------------------------------------------------------
 
-  - 执行成功可以看到以下显示
-  
-  ```bash
-  [INFO] Reactor Summary for user-info 1.0.0-SNAPSHOT:
-  [INFO] 
-  [INFO] user-info .......................................... SUCCESS [  2.040 s]
-  [INFO] auth-server ........................................ SUCCESS [  0.748 s]
-  [INFO] ------------------------------------------------------------------------
-  [INFO] BUILD SUCCESS
-  [INFO] ------------------------------------------------------------------------
-  [INFO] Total time:  3.532 s
-  [INFO] Finished at: 2019-11-28T14:31:50+08:00
-  [INFO] ------------------------------------------------------------------------
-  ```
-  - 如果执行失败可以先使用以下命令进行环境清空，然后重新执行初始化命令
+如果执行失败可以先使用以下命令进行环境清空，然后重新执行初始化命令
   ```bash
   mvn flyway:clean --projects :auth-server,:user-info
   ```
-### 5. 项目启动
-- 顺序启动各个服务项目（使用命令行启动会阻塞命令界面，需要开启4个分别来启动以下项目）
+### 5. 启动子项目
+顺序启动各个服务项目（使用命令行启动会阻塞命令界面，需要开启4个命令窗口分别来启动以下项目）
   ```bash
   mvn spring-boot:run --projects :config-server
   mvn spring-boot:run --projects :auth-server
   mvn spring-boot:run --projects :common,:user-info
   mvn spring-boot:run --projects :zuul
   ```
-  或者也可以使用IDE通过Maven Project方式导入项目来启动
+**或者使用IDE通过Maven Project方式导入项目来启动**
   
 ### 6. 测试
   ```bash
@@ -207,17 +200,58 @@ Docker-compose|1.24.1|
   # 
 
   ```
-  
+
 ## 特性说明
 
 ### Spring Cloud 特性
 
 #### 注册服务 Eureka
 
+
+
 #### 单点登录服务 Security OAuth2 JWT
 
 #### 配置服务 Config
 
+- 敏感属性加解密
+1. 生成秘钥库
+    ```bash
+    # 使用JDK自带keytool工具
+    keytool -genkeypair -alias encrptkey -keyalg RSA -dname "CN=www.newtouch.com, O=NEWTOUCH, C=CN" -keypass www.newtouch.com -keystore key.jks -storepass www.newtouch.com
+    
+    # 这步为可选步骤（转换为最新标准格式）
+    keytool -importkeystore -srckeystore key.jks -destkeystore key.jks -deststoretype pkcs12
+    
+    # 将产生的秘钥文件复制到配置服务的src/main/resources目录下
+    cp key.jks [config root]/src/main/resources
+    ```
+2. 修改配置中心服务配置文件bootstrap.yml，添加下面的配置
+    ```yaml
+     encrypt:
+       key-store:
+         location: "classpath:key.jks" # 秘钥文件所在路径
+         password: www.newtouch.com # 务必和执行命令行中的参数保持一致
+         alias: encrptkey # 务必和执行命令行中的参数保持一致
+         secret: www.newtouch.com # 务必和执行命令行中的参数保持一致
+    ```
+3. 使用命令行产生秘钥加密串
+    ```bash
+    curl http://localhost:8888/encrypt -d 123456 # -d后的123456为需要加密的敏感数据，请自行替换
+    AQAGo/G3MiqK0xY/......略
+    ```
+4. 将原配置文件中需要加密的敏感数据替换成{cipher}...格式
+    - 原格式
+    ```yaml
+    spring:
+      rabbitmq:
+        password: 123456
+    ```
+    - 加密格式
+    ```yaml
+    spring:
+      rabbitmq:
+        password: "{cipher}AQAGo/G3MiqK0xY/......略"
+    ```
 #### 客户端负载均衡 Ribbon
 
 #### 声明式服务调用 Feign

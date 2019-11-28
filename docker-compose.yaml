@@ -38,7 +38,7 @@ services:
     mem_limit: 256MB
     restart: on-failure
   eureka:
-    image: registry.onetest.newtouch.com/demo/eureka:1.0.0.RELEASE
+    image: registry.onetest.newtouch.com/demo/eureka-server:1.0.0.RELEASE
     networks:
       - demo
     ports:

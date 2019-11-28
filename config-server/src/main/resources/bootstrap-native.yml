@@ -18,5 +18,5 @@ spring:
           searchLocations: classpath:/config/{label}
   rabbitmq:
     username: rabbit
-    password: 123456
+    password: "{cipher}AQCh7Xiw35PSAjx7qpMerqVePMjkieuByI7KRuuzACQh5TS6175s1jy4Dvi1FDjQTZz7VAomLQAHJAPJkM8jnr4yvA3dSSqBB0OSuQmf4wmkpOXHYKJ6dN0jpvwe0pZAD/CGiiyC1n/GcblxP//t7OSEoCY8nBVFHXa8nDLypGgLy3+S+Lmv88QWEA91+BmdnXi0k39pj4Fl9ufjdR+j54LNpEZsFb/nrWNZFV617G4aQf3Y9lhJyOYNa6Kam5/K20iDdZYcQO/27CQi6vtNPe9nYrZxEydMq0x9GKbVhINw5k68O/MS4YUd0HiiV5bQR/36VMn+uBWAJhVs88kAXlk8eLB8nxLaUODX7DpdqDNmUCUyOHHAe35j6iZ8ZfmGzQI="
     host: localhost
