@@ -53,13 +53,6 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource);
-//        clients.inMemory().withClient("web_app")// 创建一个客户端 名字是web_app
-//                .secret("{bcrypt}$2a$10$pfazORB0N6ffporzArY4NefGMCFJ54MlWt29EboRqjIl1UeRgNVoa")
-//                .scopes("DEMO")
-//                .authorizedGrantTypes("refresh_token", "password")
-//                .authorities("DEMO_READ", "DEMO_WRITE")
-//                .accessTokenValiditySeconds(3600);
-        ;
     }
 
     @Override
