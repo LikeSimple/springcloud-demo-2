@@ -14,7 +14,7 @@ services:
       - mq
     restart: on-failure
   turbine:
-    image: registry.onetest.newtouch.com/demo/turbine:1.0.0.RELEASE
+    image: registry.onetest.newtouch.com/demo/turbine-server:1.0.0.RELEASE
     networks:
       - demo
     ports:
@@ -27,7 +27,7 @@ services:
       - mq
     restart: on-failure
   admin:
-    image: registry.onetest.newtouch.com/demo/admin:1.0.0.RELEASE
+    image: registry.onetest.newtouch.com/demo/admin-server:1.0.0.RELEASE
     networks:
       - demo
     ports:
