@@ -12,6 +12,7 @@ services:
     mem_limit: 256MB
     depends_on:
       - mq
+    restart: on-failure
   turbine:
     image: registry.onetest.newtouch.com/demo/turbine:1.0.0.RELEASE
     networks:
@@ -24,6 +25,7 @@ services:
     mem_limit: 256MB
     depends_on:
       - mq
+    restart: on-failure
   admin:
     image: registry.onetest.newtouch.com/demo/admin:1.0.0.RELEASE
     networks:
@@ -34,6 +36,7 @@ services:
       TZ: "Asia/Shanghai"
       JAVA_OPTS: "-Xms128m -Xmx128m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
     mem_limit: 256MB
+    restart: on-failure
   eureka:
     image: registry.onetest.newtouch.com/demo/eureka:1.0.0.RELEASE
     networks:
@@ -44,6 +47,7 @@ services:
       TZ: "Asia/Shanghai"
       JAVA_OPTS: "-Xms64m -Xmx64m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Dspring.profiles.active=docker"
     mem_limit: 128MB
+    restart: on-failure
   mq:
     image: rabbitmq:3.7.19-management-alpine
     networks:
@@ -58,6 +62,7 @@ services:
       RABBITMQ_DEFAULT_USER: "rabbit"
       RABBITMQ_DEFAULT_PASS: "123456"
     mem_limit: 512MB
+    restart: on-failure
   db:
     image: percona:5.7 # 数据库 MySQL 的 Percona 发行版
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --ignore-db-dir=lost+found
@@ -71,6 +76,7 @@ services:
       MYSQL_ROOT_PASSWORD: "123456"
       TZ: "Asia/Shanghai"
     mem_limit: 512MB
+    restart: on-failure
   oracle:
     image: oracle/database:11.2.0.2-xe
     networks:
@@ -84,6 +90,8 @@ services:
     environment:
       TZ: "Asia/Shanghai"
       ORACLE_PWD: 123456
+    mem_limit: 1024MB
+    restart: on-failure
   redis:
     image: redis:4.0.14-alpine
     networks:
@@ -93,6 +101,7 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     mem_limit: 512MB
+    restart: on-failure
   zipkin:
     image: openzipkin/zipkin:2.18.1
     networks:
@@ -106,5 +115,6 @@ services:
     mem_limit: 256MB
     depends_on:
       - mq
+    restart: on-failure
 networks:
   demo:

@@ -7,10 +7,13 @@ spring:
     config:
       server:
         accept-empty: false
-#  security:
-#    user:
-#      name: admin
-#      password: admin
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  security:
+    user:
+      name: demo
+      password: demo
 management:
   endpoints:
     web:

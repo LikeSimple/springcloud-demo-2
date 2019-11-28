@@ -1,0 +1,43 @@
+server:
+  port: 7500
+spring:
+  devtools:
+    remote:
+      secret: newtouch # 仅用于开发测试环境，生产环境部署不要配置该属性，置空即可
+  rabbitmq:
+    username: rabbit
+    password: 123456
+    host: mq
+  swagger:
+    show: true
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA04jUUG1yce9wRGyEu7cw22TBsq6opOsSxYi1ck/0ZOKuKDkfyyzLcar6q9lZ0d3SqRPseGrZERaQNVNO88KXs+jvgJunAIeuZF1c2bx1vc/EjIJAdD+F0E1Dg/UzmVVNXEHhpKLqyyLuvqN8lfo3CGrFPG7ii39ib6gSsRemxGLH0Yg+FX9s+UeMJDkjGMg4l3MGBvCOyW/mH6jib5XRo0aefMV9G7jHbbdGnWJmjEcpDO3ds12SZGwQaCt+z453FGuB/Nu+C/o6VYWERg9nVGW4tECQV34NPEAY7NiZcLB2hw2U2T1L6iiQRotFsgvr/ygTfFje4KTIFzj8T23idQIDAQAB
+          -----END PUBLIC KEY-----
+#        key-uri: http://sso:8080/oauth/token_key
+ribbon:
+  eager-load:
+    enabled: true
+    clients: user-info, auth-server
+zuul:
+  ignoredServices: '*' # 关闭Zuul自动路由功能（否则会针对Eureka Server中注册的服务自动生成路由）
+  routes:
+    user:
+      path: /user/**
+      serviceId: user-info
+    auth:
+      path: /auth/**
+      serviceId: auth-server
+  ribbon:
+    eager-load:
+      enabled: true
+proxy:
+  auth:
+    load-balanced: true
+logging:
+  level:
+    org.springframework.security.oauth.client: debug

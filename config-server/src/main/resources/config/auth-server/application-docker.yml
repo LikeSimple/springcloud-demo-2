@@ -1,10 +1,5 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: ${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://eureka:8761/eureka/
+server:
+  port: 9999
 spring:
   devtools:
     remote:
@@ -18,9 +13,6 @@ spring:
     host: mq
     username: rabbit
     password: 123456
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
   cloud:
     stream:
       bindings:

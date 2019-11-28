@@ -1,0 +1,47 @@
+server:
+  port: 7501
+spring:
+  devtools:
+    remote:
+      secret: newtouch # 仅用于开发测试环境，生产环境部署不要配置该属性，置空即可
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: newtouch
+    password: 123456
+  rabbitmq:
+    username: rabbit
+    password: 123456
+    host: localhost
+  cloud:
+    stream:
+      bindings:
+        user_register:
+          destination: demo.user.user_register
+          binder: local_rabbit
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                username: rabbit
+                password: 123456
+  swagger:
+    show: true
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA04jUUG1yce9wRGyEu7cw22TBsq6opOsSxYi1ck/0ZOKuKDkfyyzLcar6q9lZ0d3SqRPseGrZERaQNVNO88KXs+jvgJunAIeuZF1c2bx1vc/EjIJAdD+F0E1Dg/UzmVVNXEHhpKLqyyLuvqN8lfo3CGrFPG7ii39ib6gSsRemxGLH0Yg+FX9s+UeMJDkjGMg4l3MGBvCOyW/mH6jib5XRo0aefMV9G7jHbbdGnWJmjEcpDO3ds12SZGwQaCt+z453FGuB/Nu+C/o6VYWERg9nVGW4tECQV34NPEAY7NiZcLB2hw2U2T1L6iiQRotFsgvr/ygTfFje4KTIFzj8T23idQIDAQAB
+          -----END PUBLIC KEY-----
+#        key-uri: http://auth-server:9999/oauth/token_key # TODO 不能通过Eureka Client来解析服务地址
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+ribbon:
+  eager-load:
+    clients: auth-server
+    enabled: true

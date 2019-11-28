@@ -1,10 +1,5 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: ${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://eureka:8761/eureka/
+server:
+  port: 7501
 spring:
   devtools:
     remote:
@@ -14,6 +9,10 @@ spring:
     url: jdbc:oracle:thin:@oracle:1521:XE
     username: newtouch
     password: 123456
+  rabbitmq:
+    username: rabbit
+    password: 123456
+    host: mq
   cloud:
     stream:
       bindings:
@@ -29,21 +28,8 @@ spring:
                 host: mq
                 username: rabbit
                 password: 123456
-  rabbitmq:
-    username: rabbit
-    password: 123456
-    host: mq
-  flyway:
-    enabled: false
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
   swagger:
     show: true
-server:
-  port: 7501
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
 security:
   oauth2:
     resource:
@@ -52,7 +38,9 @@ security:
           -----BEGIN PUBLIC KEY-----
           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA04jUUG1yce9wRGyEu7cw22TBsq6opOsSxYi1ck/0ZOKuKDkfyyzLcar6q9lZ0d3SqRPseGrZERaQNVNO88KXs+jvgJunAIeuZF1c2bx1vc/EjIJAdD+F0E1Dg/UzmVVNXEHhpKLqyyLuvqN8lfo3CGrFPG7ii39ib6gSsRemxGLH0Yg+FX9s+UeMJDkjGMg4l3MGBvCOyW/mH6jib5XRo0aefMV9G7jHbbdGnWJmjEcpDO3ds12SZGwQaCt+z453FGuB/Nu+C/o6VYWERg9nVGW4tECQV34NPEAY7NiZcLB2hw2U2T1L6iiQRotFsgvr/ygTfFje4KTIFzj8T23idQIDAQAB
           -----END PUBLIC KEY-----
-#        key-uri: http://sso:8080/oauth/token_key
+#        key-uri: http://auth-server:9999/oauth/token_key
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 ribbon:
   eager-load:
     clients: auth-server

@@ -1,0 +1,20 @@
+eureka:
+  instance:
+    prefer-ip-address: true # 使用IP地址而非服务名，避免DNS解析问题
+    hostname: ${spring.application.name}:@project.version@ # 此处引用Maven的project.version参数，默认使用@...@格式
+  client:
+    serviceUrl:
+      defaultZone: http://cluster01:8761/eureka/
+spring:
+  cloud:
+    config:
+      ## 快速失败，如果连接不上config-server,则直接启动失败，而不使用默认配置
+      failFast: true
+      name: ds
+      ## 使用的config-server 的配置profile
+      label: ${spring.application.name}
+      discovery:
+        ## 是否使用服务发现
+        enabled: true
+        ## 服务发现的config-server 的实例id
+        service-id: config-server

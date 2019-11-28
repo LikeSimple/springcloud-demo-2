@@ -1,20 +1,22 @@
-spring:
-  cloud:
-    config.server.native.searchLocations: >
-      classpath:/config/organization,
-      classpath:/config/zuul
-  rabbitmq:
-    username: rabbit
-    password: 123456
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+server:
+  port: 8888
 eureka:
   instance:
     prefer-ip-address: true
     hostname: ${spring.application.name}
+    metadata-map:
+      user: ${spring.security.username}
+      password: ${spring.security.password}
   client:
     serviceUrl:
       defaultZone: http://cluster01:8761/eureka/
-server:
-  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        native: # 这个就是本地文件系统方式（开发环境）
+          searchLocations: classpath:/config/{label}
+  rabbitmq:
+    username: rabbit
+    password: 123456
+    host: localhost
