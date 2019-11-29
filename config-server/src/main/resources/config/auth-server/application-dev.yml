@@ -37,7 +37,7 @@ security:
   oauth2:
     authorization:
       jwt:
-        key-store: "classpath:key.jks"
+        key-store: "classpath:jwt.jks"
         key-store-password: www.newtouch.com
         key-alias: jwt
       check-token-access: "isAuthenticated()"
