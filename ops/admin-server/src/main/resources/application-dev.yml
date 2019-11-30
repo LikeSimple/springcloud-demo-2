@@ -1,9 +1,0 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: ${spring.application.name}
-  client:
-    serviceUrl:
-      defaultZone: http://cluster01:8761/eureka/
-server:
-  port: 7701

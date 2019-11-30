@@ -1,0 +1,11 @@
+spring:
+  rabbitmq:
+    username: rabbit
+    password: "{cipher}AQBdLWSOVRH+18G3ON+xKOCOV41SaUPI5UFSvacL6A3GF+Hb+3BQzNl4EcQNEcdPFkKJgIlo2435pJD5+y3yF37u2dhZ600DMVgJBAc1zqj59x6WubE8/NedT2vD5C+hqdwNw+FVmwdRnms7oLTfXncFHsd+6FekIIReXsmFFJrbHJYi2OQjFASocDLXhO6Zn2PpxqkZ+EtlCVd3FMMHLwDZ/nAsdWon7O4es2FIZ8Vof98SFnuqBn3pKFtYF9uLLcD656pveTZR5PqAddGLsg3ae+lUUW5h5u3t5eBMJaMAjkfz8dJU43Vm4bJPcaCL0nhm2y8TwDtb7hv9VdvzZNycmnXMcRRyOII2oE6YHHxSj2gIdshwgbnZqYVGacoAczk="
+    host: mq
+server:
+  port: 7702
+turbine:
+  stream:
+    destination: hystrixStreamOutput
+    content-type: application/json

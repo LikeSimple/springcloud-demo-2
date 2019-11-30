@@ -12,13 +12,10 @@ spring:
       failFast: true
       name: ds
       ## 使用的config-server 的配置profile
+      profile: ${spring.profiles.active}
       label: ${spring.application.name}
       discovery:
         ## 是否使用服务发现
         enabled: true
         ## 服务发现的config-server 的实例id
         service-id: config-server
-#    stream:
-#      bindings:
-#        hystrixStreamOutput:
-#          destination: springCloudHystrixStream

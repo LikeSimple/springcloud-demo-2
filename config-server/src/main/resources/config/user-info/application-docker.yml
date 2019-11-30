@@ -3,7 +3,7 @@ server:
 spring:
   sleuth:
     sampler:
-      percentage: 1
+      percentage: 1.0
   devtools:
     remote:
       secret: newtouch # 仅用于开发测试环境，生产环境部署不要配置该属性，置空即可
